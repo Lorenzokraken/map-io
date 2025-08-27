@@ -17,7 +17,7 @@ const getGraphTitle = (state: AppState, graphId: string): string => {
 };
 
 const Toolbar: React.FC = () => {
-  const { setState, state, addNodeAndEdge, navigateToHistory } = useContext(AppContext);
+  const { setState, state, addNodeAndEdge, navigateToHistory, onNodesDelete, selectedNodeId } = useContext(AppContext);
 
   const handleBack = useCallback(() => {
     navigateToHistory(state.history.length - 2);
@@ -71,6 +71,22 @@ const Toolbar: React.FC = () => {
           <Icon name="back" />
         </button>
         <button onClick={addNodeAndEdge}>Aggiungi Argomento</button>
+        <button
+          onClick={() => {
+            if (selectedNodeId) {
+              const nodeToDelete = state.graphs[state.currentGraphId].nodes.find(
+                (node) => node.id === selectedNodeId
+              );
+              if (nodeToDelete) {
+                onNodesDelete([nodeToDelete]);
+              }
+            }
+          }}
+          disabled={!selectedNodeId}
+          title="Elimina Nodo"
+        >
+          <Icon name="trash" />
+        </button>
       </div>
       <div className="spacer"></div>
       <div className="graph-path">

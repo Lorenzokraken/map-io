@@ -50,6 +50,18 @@ body {
   flex-grow: 1;
   height: calc(100vh - 48px); /* Adjust based on toolbar height */
   overflow: hidden;
+  /* Remove width calculation here, let flexbox handle it */
+  transition: width 0.3s ease-in-out; /* Smooth transition for width change */
+}
+
+.main-content-full-width {
+  width: 100%; /* Full width when sidebar is hidden */
+}
+
+/* Add styles for sidebar-wrapper within main-content */
+.sidebar-wrapper {
+  width: 50%; /* Half of the main-content width */
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 button {
@@ -71,4 +83,8 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.react-flow__renderer {
+  flex-grow: 1;
 }

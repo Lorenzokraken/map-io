@@ -58,6 +58,7 @@ const defaultInitialState: AppState = { // Renamed to avoid conflict with state 
   },
   currentGraphId: rootGraphId,
   history: [rootGraphId],
+  selectedNodeId: null,
 };
 
 export const AppContext = createContext<{
@@ -70,6 +71,9 @@ export const AppContext = createContext<{
   onNodesChange: (changes: NodeChange[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
   onConnect: (connection: Connection) => void;
+  onNodesDelete: (nodes: MindNode[]) => void;
+  selectedNodeId: string | null;
+  setSelectedNodeId: React.Dispatch<React.SetStateAction<string | null>>;
 }>({
   state: defaultInitialState,
   setState: () => {},
@@ -80,12 +84,16 @@ export const AppContext = createContext<{
   onNodesChange: () => {},
   onEdgesChange: () => {},
   onConnect: () => {},
+  onNodesDelete: () => {},
+  selectedNodeId: null,
+  setSelectedNodeId: () => {},
 });
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [state, setState] = useState<AppState>(defaultInitialState);
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Effect for initial data loading
@@ -273,6 +281,36 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     [],
   );
 
+  const onNodesDelete = useCallback((deletedNodes: MindNode[]) => {
+    setState((prevState) => {
+      const currentGraph = prevState.graphs[prevState.currentGraphId];
+      if (!currentGraph) return prevState;
+
+      const updatedNodes = currentGraph.nodes.filter(
+        (node) => !deletedNodes.some((n) => n.id === node.id),
+      );
+      const updatedEdges = currentGraph.edges.filter(
+        (edge) =>
+          !deletedNodes.some((node) => node.id === edge.source) &&
+          !deletedNodes.some((node) => node.id === edge.target),
+      );
+
+      const updatedGraph = {
+        ...currentGraph,
+        nodes: updatedNodes,
+        edges: updatedEdges,
+      };
+
+      return {
+        ...prevState,
+        graphs: {
+          ...prevState.graphs,
+          [prevState.currentGraphId]: updatedGraph,
+        },
+      };
+    });
+  }, []);
+
   return (
     <AppContext.Provider
       value={{
@@ -285,6 +323,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         onNodesChange,
         onEdgesChange,
         onConnect,
+        onNodesDelete,
+        selectedNodeId,
+        setSelectedNodeId,
       }}
     >
       {children}

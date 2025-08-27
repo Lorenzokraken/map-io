@@ -31,5 +31,6 @@ export interface AppState {
   graphs: Record<string, Graph>;
   currentGraphId: string; // L'ID del grafo attualmente visualizzato
   history: string[]; // Per la navigazione "back"
+  selectedNodeId: string | null; // ID del nodo attualmente selezionato
 }
 

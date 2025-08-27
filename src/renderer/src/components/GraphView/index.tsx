@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext, useCallback, useEffect } from 'react';
 import ReactFlow, {
   Background,
   Controls,
@@ -17,13 +17,8 @@ const nodeTypes = {
   custom: CustomNode,
 };
 
-interface GraphViewProps {
-  selectedNodeId: string | null;
-  setSelectedNodeId: (id: string | null) => void;
-}
-
-const GraphView: React.FC<GraphViewProps> = ({ setSelectedNodeId }) => {
-  const { state, setState, navigateToGraph, onNodesChange, onEdgesChange, onConnect } = useContext(AppContext);
+const GraphView: React.FC = () => {
+  const { state, setState, navigateToGraph, onNodesChange, onEdgesChange, onConnect, onNodesDelete, setSelectedNodeId } = useContext(AppContext);
   const currentGraph = state.graphs[state.currentGraphId];
 
   const handleNodeDoubleClick = useCallback(
@@ -93,6 +88,26 @@ const GraphView: React.FC<GraphViewProps> = ({ setSelectedNodeId }) => {
     [setSelectedNodeId],
   );
 
+  const { getNodes } = useReactFlow();
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Delete') {
+        const selectedNodes = getNodes().filter((node) => node.selected);
+        if (selectedNodes.length > 0) {
+          onNodesDelete(selectedNodes);
+          event.preventDefault(); // Prevent default browser behavior
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [getNodes, onNodesDelete]);
+
   if (!currentGraph) {
     return <div className="graph-view-container">Caricamento grafo...</div>;
   }
@@ -117,9 +132,9 @@ const GraphView: React.FC<GraphViewProps> = ({ setSelectedNodeId }) => {
   );
 };
 
-const GraphViewWrapper: React.FC<GraphViewProps> = (props) => (
+const GraphViewWrapper: React.FC = () => (
   <ReactFlowProvider>
-    <GraphView {...props} />
+    <GraphView />
   </ReactFlowProvider>
 );
 

@@ -3,22 +3,15 @@ import { AppContext } from '../../context/AppContext';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import './style.css';
 
-interface SidebarProps {
-  selectedNodeId: string | null;
-  onOpenMarkdownEditor: (nodeId: string) => void; // New prop
-}
-
-export const Sidebar: React.FC<SidebarProps> = ({ selectedNodeId, onOpenMarkdownEditor }) => {
+export const Sidebar: React.FC<{ onOpenMarkdownEditor: (nodeId: string) => void }> = ({ onOpenMarkdownEditor }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [sidebarWidth, setSidebarWidth] = useState(300); // Initial width
-  const [isResizing, setIsResizing] = useState(false); // State for resizing
   const context = useContext(AppContext);
 
   if (!context) {
     throw new Error('Sidebar must be used within an AppProvider');
   }
 
-  const { state, updateNodeData, navigateToHistory } = context;
+  const { state, updateNodeData, navigateToHistory, selectedNodeId } = context;
   const currentGraph = state.graphs[state.currentGraphId];
 
   const selectedNode = selectedNodeId
@@ -39,47 +32,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ selectedNodeId, onOpenMarkdown
     }
   };
 
-  
-
-  
-
   const handleGoBack = () => {
     if (state.history.length > 1) {
       navigateToHistory(state.history.length - 2);
     }
   };
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isResizing) {
-        const newWidth = window.innerWidth - e.clientX;
-        setSidebarWidth(Math.max(200, Math.min(500, newWidth))); // Constrain width
-      }
-    };
-
-    const handleMouseUp = () => {
-      setIsResizing(false);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-
-    if (isResizing) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    }
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isResizing]);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsResizing(true);
-  };
-
   return (
-    <div className="sidebar-wrapper" style={{ width: sidebarWidth }}>
+    <div className="sidebar-wrapper">
       <aside className="sidebar-container">
         <div className="sidebar-header">
           <button onClick={handleGoBack} disabled={state.history.length <= 1}>
@@ -179,7 +139,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ selectedNodeId, onOpenMarkdown
           <p className="no-node-selected">Select a node to see its details.</p>
         )}
       </aside>
-      <div className="sidebar-resizer" onMouseDown={handleMouseDown} />
     </div>
   );
 };
