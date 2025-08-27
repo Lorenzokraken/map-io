@@ -1,0 +1,25 @@
+.graph-view-container {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.react-flow .react-flow__background {
+  background-color: var(--primary-bg);
+}
+
+/* Stile per la minimappa */
+.react-flow .react-flow__minimap {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+}
+
+/* Stile per i controlli */
+.react-flow .react-flow__controls button {
+  background-color: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--primary-text);
+}
+
+.react-flow .react-flow__controls button:hover {
+  background-color: var(--tertiary-bg);
+}

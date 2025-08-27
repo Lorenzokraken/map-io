@@ -1,0 +1,69 @@
+.custom-node {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-left-width: 5px; /* Make space for the color accent */
+  border-radius: 8px;
+  padding: 12px 18px;
+  color: var(--primary-text);
+  font-family: inherit;
+  width: 200px; /* Increased width to accommodate description */
+  text-align: left; /* Align text to the left */
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.custom-node:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+.custom-node.selected {
+  border-color: var(--accent-color-hover);
+  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+}
+
+.custom-node.has-subgraph {
+  border-right: 2px dashed var(--accent-color);
+}
+
+.node-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px; /* Increased margin */
+  display: flex; /* Per allineare emoji e titolo */
+  align-items: center; /* Centratura verticale */
+}
+
+.node-emoji {
+  margin-right: 6px; /* Spazio tra emoji e titolo */
+  font-size: 1.2em; /* Leggermente più grande del titolo */
+  line-height: 1; /* Previene spazio extra */
+}
+
+.node-description {
+  font-size: 0.9rem;
+  color: var(--secondary-text);
+  white-space: pre-wrap; /* Respect newlines */
+  margin-bottom: 8px;
+}
+
+.subgraph-indicator {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 1rem;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.custom-handle {
+  width: 10px;
+  height: 10px;
+  background: var(--tertiary-bg) !important;
+  border: 1px solid var(--accent-color) !important;
+  transition: background-color 0.2s;
+}
+
+.custom-handle:hover {
+  background: var(--accent-color) !important;
+}

@@ -1,0 +1,95 @@
+{
+  "id": "personale",
+  "title": "Personale",
+  "type": "area",
+  "children": [
+    {
+      "id": "amicizia",
+      "title": "Amicizia",
+      "type": "topic",
+      "children": [
+        {
+          "id": "litigio-mario",
+          "title": "Litigio con Mario",
+          "type": "event",
+          "metadata": {
+            "date": "2025-04-28",
+            "location": "Roma",
+            "participants": ["Lorenzo", "Mario"],
+            "tags": ["conflitto", "amicizia"]
+          },
+          "facts": [
+            "Discussione iniziata per un ritardo ricorrente",
+            "Tono alzato da entrambe le parti"
+          ],
+          "children": [
+            {
+              "id": "citazioni-litigio",
+              "title": "Quello che mi ha detto Mario quel giorno",
+              "type": "collection",
+              "children": [
+                {
+                  "id": "quote-mario-1",
+                  "type": "quote",
+                  "speaker": "Mario",
+                  "text": "Mi stai mettendo pressione inutile.",
+                  "timestamp": "2025-04-28T19:20:00+02:00",
+                  "context": "Bar, sera"
+                },
+                {
+                  "id": "quote-mario-2",
+                  "type": "quote",
+                  "speaker": "Mario",
+                  "text": "Sento che non ti fidi di me.",
+                  "timestamp": "2025-04-28T19:25:00+02:00",
+                  "context": "Bar, sera"
+                }
+              ]
+            },
+            {
+              "id": "riflessioni-litigio",
+              "title": "Riflessioni nel tempo",
+              "type": "collection",
+              "children": [
+                {
+                  "id": "riflessione-maggio",
+                  "type": "reflection",
+                  "date": "2025-05-05",
+                  "mood": "frustrazione",
+                  "body": "Mi ha ferito sentire che non si fida; credo che il punto sia la puntualità.",
+                  "insights": [
+                    "Mi attiva il tema del rispetto del tempo",
+                    "Tendo a interpretare i ritardi come disinteresse"
+                  ],
+                  "actions": [
+                    "Proporre una regola chiara: avvisarsi se in ritardo >10 minuti",
+                    "Chiedere come si sente quando gli chiedo puntualità"
+                  ],
+                  "sentiment": "negativo",
+                  "refs": ["quote-mario-1", "quote-mario-2"]
+                },
+                {
+                  "id": "riflessione-settembre",
+                  "type": "reflection",
+                  "date": "2025-09-10",
+                  "mood": "equilibrio",
+                  "body": "Capisco che per Mario la flessibilità è naturale; per me è confine personale.",
+                  "insights": [
+                    "Non è disinteresse: è stile diverso",
+                    "Posso comunicare bisogni senza accuse"
+                  ],
+                  "actions": [
+                    "Concordare occasioni dove la puntualità è cruciale (es. treni, call)",
+                    "Usare promemoria condivisi"
+                  ],
+                  "sentiment": "neutro-positivo",
+                  "refs": ["riflessione-maggio"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

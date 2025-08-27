@@ -1,0 +1,70 @@
+.toolbar-container {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
+  height: 32px; /* Fixed height */
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toolbar-container button {
+  background-color: var(--tertiary-bg);
+  border: 1px solid var(--border-color);
+  padding: 4px 12px;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toolbar-container button:hover:not(:disabled) {
+  background-color: var(--accent-color-hover);
+  border-color: var(--accent-color-hover);
+  color: white;
+}
+
+.toolbar-container button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.graph-path {
+  font-family: monospace;
+  font-size: 0.9em;
+  color: var(--secondary-text);
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-button {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  color: var(--secondary-text);
+  cursor: pointer;
+}
+
+.breadcrumb-button:hover:not(:disabled) {
+  background-color: var(--tertiary-bg);
+  color: var(--primary-text);
+}
+
+.breadcrumb-button:disabled {
+  color: var(--primary-text);
+  font-weight: bold;
+  cursor: default;
+}
+
+.breadcrumb-separator {
+  margin: 0 4px;
+}
