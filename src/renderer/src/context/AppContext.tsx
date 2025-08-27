@@ -74,6 +74,8 @@ export const AppContext = createContext<{
   onNodesDelete: (nodes: MindNode[]) => void;
   selectedNodeId: string | null;
   setSelectedNodeId: React.Dispatch<React.SetStateAction<string | null>>;
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
   state: defaultInitialState,
   setState: () => {},
@@ -94,6 +96,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [state, setState] = useState<AppState>(defaultInitialState);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Effect for initial data loading
@@ -324,10 +327,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
         onEdgesChange,
         onConnect,
         onNodesDelete,
-        selectedNodeId,
+                selectedNodeId,
         setSelectedNodeId,
+        isSidebarOpen,
+        setIsSidebarOpen,
       }}
     >
+
       {children}
     </AppContext.Provider>
   );

@@ -1,0 +1,49 @@
+{
+  "graphs": {
+    "main-map": {
+      "id": "main-map",
+      "nodes": [
+        {
+          "id": "tuonome",
+          "position": { "x": 0, "y": -1.5 },
+          "data": { "title": "{{INSERISCI_IL_TUO_NOME}}", "color": "#ffc658" },
+          "type": "custom",
+          "width": 242,
+          "height": 60
+        },
+        {
+          "id": "musica-arte",
+          "position": { "x": -200, "y": 150 },
+          "data": { "title": "🎵 Musica / Arte", "color": "#82c9ff" },
+          "type": "custom",
+          "width": 242,
+          "height": 60
+        },
+        {
+          "id": "lavoro",
+          "position": { "x": -28.8, "y": 289.4 },
+          "data": { "title": "💻 Lavoro", "color": "#95ff82" },
+          "type": "custom",
+          "width": 242,
+          "height": 60
+        },
+        {
+          "id": "personale",
+          "position": { "x": 201.5, "y": 150 },
+          "data": { "title": "👤 Personale", "color": "#ff8282" },
+          "type": "custom",
+          "width": 242,
+          "height": 60
+        }
+      ],
+      "edges": [
+        { "id": "e-tuonome-musica-arte", "source": "tuonome", "target": "musica-arte" },
+        { "id": "e-tuonome-lavoro", "source": "tuonome", "target": "lavoro" },
+        { "id": "e-tuonome-personale", "source": "tuonome", "target": "personale" }
+      ],
+      "rootNodeId": "tuonome"
+    }
+  },
+  "currentGraphId": "main-map",
+  "history": ["main-map"]
+}

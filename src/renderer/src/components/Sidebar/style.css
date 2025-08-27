@@ -136,3 +136,21 @@
   margin-top: 50px;
   font-style: italic;
 }
+
+.sidebar-wrapper.sidebar-closed {
+  width: 0;
+  overflow: hidden;
+}
+
+.sidebar-wrapper.sidebar-closed .sidebar-container {
+  width: 0;
+  padding: 0;
+  border-left: none;
+}
+
+.modification-disabled-message {
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 20px;
+  font-style: italic;
+}

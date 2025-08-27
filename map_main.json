@@ -5,45 +5,894 @@
       "nodes": [
         {
           "id": "tuonome",
-          "position": { "x": 0, "y": -1.5 },
-          "data": { "title": "{{INSERISCI_IL_TUO_NOME}}", "color": "#ffc658" },
+          "position": {
+            "x": 0,
+            "y": -0.5
+          },
+          "data": {
+            "title": "Lorenzo",
+            "color": "#ffc658",
+            "emoji": "🐙"
+          },
           "type": "custom",
           "width": 242,
-          "height": 60
+          "height": 60,
+          "selected": false,
+          "dragging": false,
+          "positionAbsolute": {
+            "x": 0,
+            "y": -0.5
+          }
         },
         {
           "id": "musica-arte",
-          "position": { "x": -200, "y": 150 },
-          "data": { "title": "🎵 Musica / Arte", "color": "#82c9ff" },
+          "position": {
+            "x": -200,
+            "y": 150
+          },
+          "data": {
+            "title": "🎵 Musica / Arte",
+            "color": "#82c9ff",
+            "subgraphId": "798cf159-5a51-4793-8533-e96b18f5a60b"
+          },
           "type": "custom",
           "width": 242,
-          "height": 60
+          "height": 60,
+          "selected": false,
+          "dragging": false
         },
         {
           "id": "lavoro",
-          "position": { "x": -28.8, "y": 289.4 },
-          "data": { "title": "💻 Lavoro", "color": "#95ff82" },
+          "position": {
+            "x": 28.656337041898638,
+            "y": 289.4
+          },
+          "data": {
+            "title": "Lavoro",
+            "color": "#95ff82",
+            "emoji": "🖥️",
+            "subgraphId": "2fc359dc-707f-4c67-8974-575143ca96da"
+          },
           "type": "custom",
           "width": 242,
-          "height": 60
+          "height": 60,
+          "selected": false,
+          "dragging": false,
+          "positionAbsolute": {
+            "x": 28.656337041898638,
+            "y": 289.4
+          }
         },
         {
           "id": "personale",
-          "position": { "x": 201.5, "y": 150 },
-          "data": { "title": "👤 Personale", "color": "#ff8282" },
+          "position": {
+            "x": 201.5,
+            "y": 150
+          },
+          "data": {
+            "title": " Personale",
+            "color": "#F39C12",
+            "subgraphId": "02e80044-cc65-4924-8415-445ac114a852",
+            "emoji": "🧍"
+          },
           "type": "custom",
           "width": 242,
-          "height": 60
+          "height": 60,
+          "selected": true,
+          "dragging": false
         }
       ],
       "edges": [
-        { "id": "e-tuonome-musica-arte", "source": "tuonome", "target": "musica-arte" },
-        { "id": "e-tuonome-lavoro", "source": "tuonome", "target": "lavoro" },
-        { "id": "e-tuonome-personale", "source": "tuonome", "target": "personale" }
+        {
+          "id": "e-tuonome-musica-arte",
+          "source": "tuonome",
+          "target": "musica-arte"
+        },
+        {
+          "id": "e-tuonome-lavoro",
+          "source": "tuonome",
+          "target": "lavoro"
+        },
+        {
+          "id": "e-tuonome-personale",
+          "source": "tuonome",
+          "target": "personale"
+        }
       ],
       "rootNodeId": "tuonome"
+    },
+    "02e80044-cc65-4924-8415-445ac114a852": {
+      "id": "02e80044-cc65-4924-8415-445ac114a852",
+      "nodes": [
+        {
+          "id": "sub-root-personale",
+          "position": {
+            "x": 68.46856688129267,
+            "y": 26.60415611684178
+          },
+          "data": {
+            "title": "Personale",
+            "color": "#F39C12",
+            "emoji": "🧍"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "dragging": false,
+          "positionAbsolute": {
+            "x": 68.46856688129267,
+            "y": 26.60415611684178
+          }
+        },
+        {
+          "id": "5a780a1b-8170-43f9-be73-64443f9326fc",
+          "position": {
+            "x": 428.46448742543237,
+            "y": 325.0816352316283
+          },
+          "data": {
+            "title": "Amizia",
+            "color": "#45B7D1",
+            "emoji": "💕",
+            "subgraphId": "7d9857a6-4482-4fb8-9d10-da8737603596"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 428.46448742543237,
+            "y": 325.0816352316283
+          },
+          "dragging": false
+        },
+        {
+          "id": "ef9e281e-82ce-4aa5-b43f-f0c45906c55a",
+          "position": {
+            "x": 90.7471702590058,
+            "y": 358.3938876051874
+          },
+          "data": {
+            "title": "Amore",
+            "color": "#FF6B6B",
+            "subgraphId": "8b72a1b3-67d1-47cb-af23-7ce00637898d",
+            "emoji": "❤️"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": true,
+          "positionAbsolute": {
+            "x": 90.7471702590058,
+            "y": 358.3938876051874
+          },
+          "dragging": false
+        },
+        {
+          "id": "af9cf7e8-fba9-4ba7-9b9e-302321f7748e",
+          "position": {
+            "x": -204.46830767219026,
+            "y": 241.22665511887612
+          },
+          "data": {
+            "title": "Spiritualità",
+            "color": "#28B463",
+            "subgraphId": "817a6f55-4c5a-4212-8527-42bb284fca81",
+            "emoji": "⭐"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": -204.46830767219026,
+            "y": 241.22665511887612
+          },
+          "dragging": false
+        },
+        {
+          "id": "7f30ca75-d152-49f7-b905-bc9ef5a19973",
+          "position": {
+            "x": 511.097909846166,
+            "y": 136.69510456736316
+          },
+          "data": {
+            "title": "Famiglia",
+            "color": "#28B463",
+            "emoji": "👨‍👩‍👦",
+            "subgraphId": "1ae5b722-4fce-4502-a89c-88a99b1ad42f"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 511.097909846166,
+            "y": 136.69510456736316
+          },
+          "dragging": false
+        },
+        {
+          "id": "691a4888-a19f-407e-a32a-ec154f8202fd",
+          "position": {
+            "x": -273.66756599753614,
+            "y": 124.5684870772929
+          },
+          "data": {
+            "title": "Allenamento",
+            "color": "#FED766",
+            "subgraphId": "0f7fd40e-d4ed-4d4e-808a-497fbf3b6246",
+            "emoji": "💪"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": -273.66756599753614,
+            "y": 124.5684870772929
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [
+        {
+          "id": "e-sub-root-personale-5a780a1b-8170-43f9-be73-64443f9326fc",
+          "source": "sub-root-personale",
+          "target": "5a780a1b-8170-43f9-be73-64443f9326fc"
+        },
+        {
+          "id": "e-sub-root-personale-ef9e281e-82ce-4aa5-b43f-f0c45906c55a",
+          "source": "sub-root-personale",
+          "target": "ef9e281e-82ce-4aa5-b43f-f0c45906c55a"
+        },
+        {
+          "id": "e-sub-root-personale-af9cf7e8-fba9-4ba7-9b9e-302321f7748e",
+          "source": "sub-root-personale",
+          "target": "af9cf7e8-fba9-4ba7-9b9e-302321f7748e"
+        },
+        {
+          "id": "e-sub-root-personale-7f30ca75-d152-49f7-b905-bc9ef5a19973",
+          "source": "sub-root-personale",
+          "target": "7f30ca75-d152-49f7-b905-bc9ef5a19973"
+        },
+        {
+          "id": "e-sub-root-personale-691a4888-a19f-407e-a32a-ec154f8202fd",
+          "source": "sub-root-personale",
+          "target": "691a4888-a19f-407e-a32a-ec154f8202fd"
+        }
+      ],
+      "rootNodeId": "sub-root-personale"
+    },
+    "817a6f55-4c5a-4212-8527-42bb284fca81": {
+      "id": "817a6f55-4c5a-4212-8527-42bb284fca81",
+      "nodes": [
+        {
+          "id": "sub-root-af9cf7e8-fba9-4ba7-9b9e-302321f7748e",
+          "position": {
+            "x": -204.46830767219026,
+            "y": 241.22665511887612
+          },
+          "data": {
+            "title": "Spiritualità",
+            "color": "#ffffff"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": true,
+          "positionAbsolute": {
+            "x": -204.46830767219026,
+            "y": 241.22665511887612
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [],
+      "rootNodeId": "sub-root-af9cf7e8-fba9-4ba7-9b9e-302321f7748e"
+    },
+    "8b72a1b3-67d1-47cb-af23-7ce00637898d": {
+      "id": "8b72a1b3-67d1-47cb-af23-7ce00637898d",
+      "nodes": [
+        {
+          "id": "sub-root-ef9e281e-82ce-4aa5-b43f-f0c45906c55a",
+          "position": {
+            "x": 90.7471702590058,
+            "y": 358.3938876051874
+          },
+          "data": {
+            "title": "Amore",
+            "color": "#FF6B6B",
+            "emoji": "❤️"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 90.7471702590058,
+            "y": 358.3938876051874
+          },
+          "dragging": false
+        },
+        {
+          "id": "f5b4659f-a92d-433a-9801-4a0d0e8cb6ea",
+          "position": {
+            "x": -65.97539507137162,
+            "y": 560.7908581066588
+          },
+          "data": {
+            "title": "Divertimento",
+            "color": "#4ECDC4",
+            "subgraphId": "7f61d95b-8f20-4267-a6cf-94b5b1248f5f",
+            "emoji": "👧"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": -65.97539507137162,
+            "y": 560.7908581066588
+          },
+          "dragging": false
+        },
+        {
+          "id": "52f80d1b-68d3-42ba-add3-0bcad6bf1e30",
+          "position": {
+            "x": 345.7110701739873,
+            "y": 563.4298739095137
+          },
+          "data": {
+            "title": "Traumi",
+            "color": "#FF6B6B",
+            "emoji": "❤️‍🩹",
+            "subgraphId": "7f49e4fe-9772-4ede-9cb0-df64f7e8e44d"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": true,
+          "positionAbsolute": {
+            "x": 345.7110701739873,
+            "y": 563.4298739095137
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [
+        {
+          "id": "e-sub-root-ef9e281e-82ce-4aa5-b43f-f0c45906c55a-f5b4659f-a92d-433a-9801-4a0d0e8cb6ea",
+          "source": "sub-root-ef9e281e-82ce-4aa5-b43f-f0c45906c55a",
+          "target": "f5b4659f-a92d-433a-9801-4a0d0e8cb6ea"
+        },
+        {
+          "id": "e-sub-root-ef9e281e-82ce-4aa5-b43f-f0c45906c55a-52f80d1b-68d3-42ba-add3-0bcad6bf1e30",
+          "source": "sub-root-ef9e281e-82ce-4aa5-b43f-f0c45906c55a",
+          "target": "52f80d1b-68d3-42ba-add3-0bcad6bf1e30"
+        }
+      ],
+      "rootNodeId": "sub-root-ef9e281e-82ce-4aa5-b43f-f0c45906c55a"
+    },
+    "1ae5b722-4fce-4502-a89c-88a99b1ad42f": {
+      "id": "1ae5b722-4fce-4502-a89c-88a99b1ad42f",
+      "nodes": [
+        {
+          "id": "sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973",
+          "position": {
+            "x": 511.097909846166,
+            "y": 136.69510456736316
+          },
+          "data": {
+            "title": "Famiglia",
+            "color": "#28B463",
+            "emoji": "👨‍👩‍👦"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 511.097909846166,
+            "y": 136.69510456736316
+          },
+          "dragging": false
+        },
+        {
+          "id": "9831b813-cde5-44f3-80f3-09aa9450693a",
+          "position": {
+            "x": 79.17047502019213,
+            "y": 252.02601214761154
+          },
+          "data": {
+            "title": "Mamma",
+            "color": "#FF6B6B",
+            "emoji": "❤️"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 79.17047502019213,
+            "y": 252.02601214761154
+          },
+          "dragging": false
+        },
+        {
+          "id": "7c218540-709a-40df-8aca-008cb3e21f3c",
+          "position": {
+            "x": 616.2101972404955,
+            "y": 389.2548355159446
+          },
+          "data": {
+            "title": "Papà",
+            "color": "#FED766",
+            "emoji": "⭐"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 616.2101972404955,
+            "y": 389.2548355159446
+          },
+          "dragging": false
+        },
+        {
+          "id": "3a0d57f4-db7d-47f7-9c2a-bb566571ddb9",
+          "position": {
+            "x": 819.4144164589885,
+            "y": 306.12583674474286
+          },
+          "data": {
+            "title": "Nonna",
+            "color": "#F39C12",
+            "emoji": "👵"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 819.4144164589885,
+            "y": 306.12583674474286
+          },
+          "dragging": false
+        },
+        {
+          "id": "81d4ee2b-93da-4d80-acfc-d27c085379cd",
+          "position": {
+            "x": 178.13356879543227,
+            "y": 430.15958094304386
+          },
+          "data": {
+            "title": "Serpenti",
+            "color": "#28B463",
+            "emoji": "🐍"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "dragging": false,
+          "positionAbsolute": {
+            "x": 178.13356879543227,
+            "y": 430.15958094304386
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e-sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973-9831b813-cde5-44f3-80f3-09aa9450693a",
+          "source": "sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973",
+          "target": "9831b813-cde5-44f3-80f3-09aa9450693a"
+        },
+        {
+          "id": "e-sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973-7c218540-709a-40df-8aca-008cb3e21f3c",
+          "source": "sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973",
+          "target": "7c218540-709a-40df-8aca-008cb3e21f3c"
+        },
+        {
+          "id": "e-sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973-3a0d57f4-db7d-47f7-9c2a-bb566571ddb9",
+          "source": "sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973",
+          "target": "3a0d57f4-db7d-47f7-9c2a-bb566571ddb9"
+        },
+        {
+          "id": "e-sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973-81d4ee2b-93da-4d80-acfc-d27c085379cd",
+          "source": "sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973",
+          "target": "81d4ee2b-93da-4d80-acfc-d27c085379cd"
+        }
+      ],
+      "rootNodeId": "sub-root-7f30ca75-d152-49f7-b905-bc9ef5a19973"
+    },
+    "798cf159-5a51-4793-8533-e96b18f5a60b": {
+      "id": "798cf159-5a51-4793-8533-e96b18f5a60b",
+      "nodes": [
+        {
+          "id": "sub-root-musica-arte",
+          "position": {
+            "x": -200,
+            "y": 150
+          },
+          "data": {
+            "title": "Musica / Arte",
+            "color": "#82c9ff",
+            "emoji": "🎶"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "dragging": false,
+          "positionAbsolute": {
+            "x": -200,
+            "y": 150
+          }
+        },
+        {
+          "id": "f7356b46-af0e-4780-a991-f80c49cecfe3",
+          "position": {
+            "x": -333.12251980333724,
+            "y": 250.41623902457764
+          },
+          "data": {
+            "title": "Elettronica",
+            "color": "#AF7AC5",
+            "emoji": "🎹"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": -333.12251980333724,
+            "y": 250.41623902457764
+          },
+          "dragging": false
+        },
+        {
+          "id": "64d00758-a65f-49ef-bbe4-1a6cddfa3925",
+          "position": {
+            "x": 36.75834701278205,
+            "y": 379.07045356931485
+          },
+          "data": {
+            "title": "Musica Meditativa",
+            "color": "#28B463",
+            "emoji": "⭐"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 36.75834701278205,
+            "y": 379.07045356931485
+          },
+          "dragging": false
+        },
+        {
+          "id": "7ccb6e8b-c39b-48f7-af1e-a63c22f514f3",
+          "position": {
+            "x": 283.72849100491135,
+            "y": 244.67274730383048
+          },
+          "data": {
+            "title": "Rap",
+            "color": "#FED766",
+            "emoji": "🎤",
+            "subgraphId": "23d0a95d-c029-4cc2-b8c3-940a18de47b8"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": true,
+          "positionAbsolute": {
+            "x": 283.72849100491135,
+            "y": 244.67274730383048
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [
+        {
+          "id": "e-sub-root-musica-arte-f7356b46-af0e-4780-a991-f80c49cecfe3",
+          "source": "sub-root-musica-arte",
+          "target": "f7356b46-af0e-4780-a991-f80c49cecfe3"
+        },
+        {
+          "id": "e-sub-root-musica-arte-64d00758-a65f-49ef-bbe4-1a6cddfa3925",
+          "source": "sub-root-musica-arte",
+          "target": "64d00758-a65f-49ef-bbe4-1a6cddfa3925"
+        },
+        {
+          "id": "e-sub-root-musica-arte-7ccb6e8b-c39b-48f7-af1e-a63c22f514f3",
+          "source": "sub-root-musica-arte",
+          "target": "7ccb6e8b-c39b-48f7-af1e-a63c22f514f3"
+        }
+      ],
+      "rootNodeId": "sub-root-musica-arte"
+    },
+    "2fc359dc-707f-4c67-8974-575143ca96da": {
+      "id": "2fc359dc-707f-4c67-8974-575143ca96da",
+      "nodes": [
+        {
+          "id": "sub-root-lavoro",
+          "position": {
+            "x": 28.656337041898638,
+            "y": 289.4
+          },
+          "data": {
+            "title": "Lavoro",
+            "color": "#95ff82",
+            "emoji": "🖥️"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "dragging": false,
+          "positionAbsolute": {
+            "x": 28.656337041898638,
+            "y": 289.4
+          }
+        },
+        {
+          "id": "bad3675f-d884-4943-99c7-ded875674c5e",
+          "position": {
+            "x": -91.04604519849283,
+            "y": 497.4544788381419
+          },
+          "data": {
+            "title": "DAG Factory",
+            "color": "#FF6B6B",
+            "emoji": "🏭"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": -91.04604519849283,
+            "y": 497.4544788381419
+          },
+          "dragging": false
+        },
+        {
+          "id": "22f4f331-2e6a-42ed-b035-0fbb0b601980",
+          "position": {
+            "x": 289.0227863319751,
+            "y": 470.09730307008
+          },
+          "data": {
+            "title": "Airvana",
+            "color": "#45B7D1",
+            "emoji": "🍃"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 289.0227863319751,
+            "y": 470.09730307008
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [
+        {
+          "id": "e-sub-root-lavoro-bad3675f-d884-4943-99c7-ded875674c5e",
+          "source": "sub-root-lavoro",
+          "target": "bad3675f-d884-4943-99c7-ded875674c5e"
+        },
+        {
+          "id": "e-sub-root-lavoro-22f4f331-2e6a-42ed-b035-0fbb0b601980",
+          "source": "sub-root-lavoro",
+          "target": "22f4f331-2e6a-42ed-b035-0fbb0b601980"
+        }
+      ],
+      "rootNodeId": "sub-root-lavoro"
+    },
+    "7d9857a6-4482-4fb8-9d10-da8737603596": {
+      "id": "7d9857a6-4482-4fb8-9d10-da8737603596",
+      "nodes": [
+        {
+          "id": "sub-root-5a780a1b-8170-43f9-be73-64443f9326fc",
+          "position": {
+            "x": 428.46448742543237,
+            "y": 325.0816352316283
+          },
+          "data": {
+            "title": "Amizia",
+            "color": "#45B7D1",
+            "emoji": "💕"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": true,
+          "positionAbsolute": {
+            "x": 428.46448742543237,
+            "y": 325.0816352316283
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [],
+      "rootNodeId": "sub-root-5a780a1b-8170-43f9-be73-64443f9326fc"
+    },
+    "7f61d95b-8f20-4267-a6cf-94b5b1248f5f": {
+      "id": "7f61d95b-8f20-4267-a6cf-94b5b1248f5f",
+      "nodes": [
+        {
+          "id": "sub-root-f5b4659f-a92d-433a-9801-4a0d0e8cb6ea",
+          "position": {
+            "x": -65.97539507137162,
+            "y": 560.7908581066588
+          },
+          "data": {
+            "title": "Nuovo Argomento",
+            "color": "#ffffff"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": true,
+          "positionAbsolute": {
+            "x": -65.97539507137162,
+            "y": 560.7908581066588
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [],
+      "rootNodeId": "sub-root-f5b4659f-a92d-433a-9801-4a0d0e8cb6ea"
+    },
+    "23d0a95d-c029-4cc2-b8c3-940a18de47b8": {
+      "id": "23d0a95d-c029-4cc2-b8c3-940a18de47b8",
+      "nodes": [
+        {
+          "id": "sub-root-7ccb6e8b-c39b-48f7-af1e-a63c22f514f3",
+          "position": {
+            "x": 283.72849100491135,
+            "y": 244.67274730383048
+          },
+          "data": {
+            "title": "Rap",
+            "color": "#FED766",
+            "emoji": "🎤"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": true,
+          "positionAbsolute": {
+            "x": 283.72849100491135,
+            "y": 244.67274730383048
+          },
+          "dragging": false
+        },
+        {
+          "id": "07b4e942-913d-4aae-b44a-505d8b847a50",
+          "position": {
+            "x": -81.83175275664355,
+            "y": 419.60537051810843
+          },
+          "data": {
+            "title": "Video POSSO MIGLIORARE",
+            "color": "#4ECDC4",
+            "emoji": "📹"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 86,
+          "selected": false,
+          "positionAbsolute": {
+            "x": -81.83175275664355,
+            "y": 419.60537051810843
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [
+        {
+          "id": "e-sub-root-7ccb6e8b-c39b-48f7-af1e-a63c22f514f3-07b4e942-913d-4aae-b44a-505d8b847a50",
+          "source": "sub-root-7ccb6e8b-c39b-48f7-af1e-a63c22f514f3",
+          "target": "07b4e942-913d-4aae-b44a-505d8b847a50"
+        }
+      ],
+      "rootNodeId": "sub-root-7ccb6e8b-c39b-48f7-af1e-a63c22f514f3"
+    },
+    "0f7fd40e-d4ed-4d4e-808a-497fbf3b6246": {
+      "id": "0f7fd40e-d4ed-4d4e-808a-497fbf3b6246",
+      "nodes": [
+        {
+          "id": "sub-root-691a4888-a19f-407e-a32a-ec154f8202fd",
+          "position": {
+            "x": -215.89341126666653,
+            "y": 97.8244475210025
+          },
+          "data": {
+            "title": "Allenamento",
+            "color": "#FED766",
+            "emoji": "💪"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": -215.89341126666653,
+            "y": 97.8244475210025
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [],
+      "rootNodeId": "sub-root-691a4888-a19f-407e-a32a-ec154f8202fd"
+    },
+    "7f49e4fe-9772-4ede-9cb0-df64f7e8e44d": {
+      "id": "7f49e4fe-9772-4ede-9cb0-df64f7e8e44d",
+      "nodes": [
+        {
+          "id": "sub-root-52f80d1b-68d3-42ba-add3-0bcad6bf1e30",
+          "position": {
+            "x": 345.7110701739873,
+            "y": 563.4298739095137
+          },
+          "data": {
+            "title": "Traumi",
+            "color": "#FF6B6B",
+            "emoji": "❤️‍🩹"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 345.7110701739873,
+            "y": 563.4298739095137
+          },
+          "dragging": false
+        },
+        {
+          "id": "367e9a01-e51d-4b5d-9346-2285716411f3",
+          "position": {
+            "x": 178.3697365991615,
+            "y": 720.2253587050908
+          },
+          "data": {
+            "title": "Veronica",
+            "color": "#ffffff",
+            "markdownContent": "<p><strong>Inizio relazione</strong>: Veronica entra nella vita di Lorenzo come presenza molto forte, inizialmente vissuta come luce e rifugio. Lei rappresenta per lui un punto di riferimento emotivo, in un periodo in cui cercava stabilità.</p><p><strong>Dinamiche</strong>: La relazione è intensa ma complessa. Veronica alterna momenti di grande vicinanza ad altri di distanza. Lorenzo, molto coinvolto, vive oscillazioni emotive forti: dalla passione e dipendenza affettiva fino a dubbi e sofferenza quando lei si allontana.</p><p><strong>Fragilità</strong>: Lorenzo tende a idealizzare Veronica, vedendola come qualcuno da salvare o con cui salvarsi. Lei però appare ambivalente, non sempre chiara nei suoi comportamenti e sentimenti, lasciando Lorenzo spesso confuso.</p><p><strong>Rottura e conseguenze</strong>: Con il tempo emergono incompatibilità e ferite reciproche. La storia porta Lorenzo a confrontarsi con i propri limiti, le sue insicurezze e il bisogno di riconoscere il proprio valore al di là del rapporto.</p><p><strong>Elaborazione</strong>: Dopo la fine, Veronica resta una figura che segna profondamente Lorenzo, ma anche una lezione su confini, amore non corrisposto in modo equilibrato e il rischio di annullarsi dentro una relazione.</p>"
+          },
+          "type": "custom",
+          "width": 242,
+          "height": 60,
+          "selected": true,
+          "positionAbsolute": {
+            "x": 178.3697365991615,
+            "y": 720.2253587050908
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [
+        {
+          "id": "e-sub-root-52f80d1b-68d3-42ba-add3-0bcad6bf1e30-367e9a01-e51d-4b5d-9346-2285716411f3",
+          "source": "sub-root-52f80d1b-68d3-42ba-add3-0bcad6bf1e30",
+          "target": "367e9a01-e51d-4b5d-9346-2285716411f3"
+        }
+      ],
+      "rootNodeId": "sub-root-52f80d1b-68d3-42ba-add3-0bcad6bf1e30"
     }
   },
   "currentGraphId": "main-map",
-  "history": ["main-map"]
+  "history": [
+    "main-map"
+  ]
 }
