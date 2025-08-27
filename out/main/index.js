@@ -133,10 +133,10 @@ async function createWindow() {
   });
   let initialAppState = {};
   try {
-    const data = await promises.readFile(path.join(electron.app.getAppPath(), "lorenzo_main.json"), "utf-8");
+    const data = await promises.readFile(path.join(electron.app.getAppPath(), "map_main.json"), "utf-8");
     initialAppState = JSON.parse(data);
   } catch (err) {
-    console.error("Failed to load lorenzo_main.json at startup:", err);
+    console.error("Failed to load map_main.json at startup:", err);
     initialAppState = {
       graphs: {},
       currentGraphId: "",
