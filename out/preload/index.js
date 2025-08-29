@@ -26,6 +26,16 @@ const api = {
   },
   loadAutosavedData: () => {
     return electron.ipcRenderer.invoke("load-autosaved-data");
+  },
+  // New chat functions
+  sendChatMessage: (message, state) => {
+    electron.ipcRenderer.send("send-chat-message", message, state);
+  },
+  onReceiveChatMessage: (callback) => {
+    electron.ipcRenderer.on("receive-chat-message", (_event, message) => callback(message));
+  },
+  removeReceiveChatMessageListener: () => {
+    electron.ipcRenderer.removeAllListeners("receive-chat-message");
   }
 };
 electron.contextBridge.exposeInMainWorld("api", api);

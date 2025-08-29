@@ -1,0 +1,3 @@
+"Questa applicazione è un assistente AI interattivo con chat in tempo reale e gestione visuale di mappe mentali.
+Permette di creare, leggere, aggiornare ed eliminare nodi e collegamenti (funzioni CRUD) tramite comandi in linguaggio naturale o pulsanti dedicati.
+L’interfaccia è moderna, ottimizzata per light/dark mode, e include input testuale, rendering markdown, e gestione di conversazioni contestuali."

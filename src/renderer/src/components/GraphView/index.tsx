@@ -1,10 +1,12 @@
-import React, { useContext, useCallback, useEffect } from 'react';
+import React, { useContext, useCallback, useEffect, useRef, useState } from 'react'; // Added useRef, useState
 import ReactFlow, {
   Background,
   Controls,
   Node,
   useReactFlow,
   ReactFlowProvider,
+  SmoothStepEdge,
+  MarkerType,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,75 +19,75 @@ const nodeTypes = {
   custom: CustomNode,
 };
 
+const edgeTypes = {
+  smoothstep: SmoothStepEdge,
+};
+
+const defaultEdgeOptions = {
+  type: 'smoothstep',
+  animated: false,
+  style: { strokeWidth: 2, stroke: 'var(--border-color)' },
+  markerEnd: {
+    type: MarkerType.ArrowClosed,
+    width: 20,
+    height: 20,
+    color: 'var(--border-color)',
+  },
+};
+
 const GraphView: React.FC = () => {
-  const { state, setState, navigateToGraph, onNodesChange, onEdgesChange, onConnect, onNodesDelete, setSelectedNodeId } = useContext(AppContext);
+  const { state, setState, navigateToGraph, onNodesChange, onEdgesChange, onConnect, onNodesDelete, setSelectedNodeId, setIsNodeModifierOpen } = useContext(AppContext);
   const currentGraph = state.graphs[state.currentGraphId];
+
+  const reactFlowWrapper = useRef<HTMLDivElement>(null); // Ref for the container
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 }); // State for dimensions
+
+  // Effect to get dimensions of the React Flow wrapper
+  useEffect(() => {
+    if (reactFlowWrapper.current) {
+      setDimensions({
+        width: reactFlowWrapper.current.offsetWidth,
+        height: reactFlowWrapper.current.offsetHeight,
+      });
+    }
+  }, []); // Run once on mount
+
+  // Re-calculate dimensions on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (reactFlowWrapper.current) {
+        setDimensions({
+          width: reactFlowWrapper.current.offsetWidth,
+          height: reactFlowWrapper.current.offsetHeight,
+        });
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleNodeDoubleClick = useCallback(
     (_event: React.MouseEvent, node: MindNode) => {
-      // Ensure currentGraph is defined before proceeding
-      if (!currentGraph) {
-        return;
-      }
-
-      // Prevent navigating if the double-clicked node is the current graph's root node
-      if (node.id === currentGraph.rootNodeId) {
-        return;
-      }
-
       if (node.data.subgraphId) {
         navigateToGraph(node.data.subgraphId);
-      } else {
-        const newSubgraphId = uuidv4();
-
-        setState((prevState) => {
-          // Creazione del nuovo grafo (sottografo)
-          const newRootNode: MindNode = {
-            ...node,
-            id: `sub-root-${node.id}`,
-            position: node.position,
-            data: { ...node.data, subgraphId: undefined },
-          };
-          const newGraph: Graph = {
-            id: newSubgraphId,
-            nodes: [newRootNode],
-            edges: [],
-            rootNodeId: newRootNode.id,
-          };
-
-          // Aggiornamento immutabile del grafo corrente
-          const currentGraph = prevState.graphs[prevState.currentGraphId];
-          const updatedNodes = currentGraph.nodes.map((n) =>
-            n.id === node.id
-              ? { ...n, data: { ...n.data, subgraphId: newSubgraphId } }
-              : n,
-          );
-          const updatedCurrentGraph = { ...currentGraph, nodes: updatedNodes };
-
-          // Aggiornamento dello stato globale
-          const updatedGraphs = {
-            ...prevState.graphs,
-            [prevState.currentGraphId]: updatedCurrentGraph,
-            [newSubgraphId]: newGraph,
-          };
-
-          return {
-            ...prevState,
-            graphs: updatedGraphs,
-            currentGraphId: newSubgraphId,
-            history: [...prevState.history, newSubgraphId],
-          };
-        });
       }
     },
-    [setState, navigateToGraph, currentGraph], // Add currentGraph to dependencies
+    [navigateToGraph],
   );
 
   const onSelectionChange = useCallback(
     ({ nodes }: { nodes: Node[] }) => {
-      setSelectedNodeId(nodes.length > 0 ? nodes[0].id : null);
+      // If no nodes are selected, close the NodeModifier
+      if (nodes.length === 0) {
+        setSelectedNodeId(null);
+        setIsNodeModifierOpen(false);
+      } else {
+        // If a node is selected, set it as selectedNodeId but don't open NodeModifier yet
+        setSelectedNodeId(nodes[0].id);
+      }
     },
-    [setSelectedNodeId],
+    [setSelectedNodeId, setIsNodeModifierOpen],
   );
 
   const { getNodes } = useReactFlow();
@@ -96,7 +98,7 @@ const GraphView: React.FC = () => {
         const selectedNodes = getNodes().filter((node) => node.selected);
         if (selectedNodes.length > 0) {
           onNodesDelete(selectedNodes);
-          event.preventDefault(); // Prevent default browser behavior
+          event.preventDefault();
         }
       }
     };
@@ -113,21 +115,28 @@ const GraphView: React.FC = () => {
   }
 
   return (
-    <div className="graph-view-container">
-      <ReactFlow
-        nodes={currentGraph.nodes}
-        edges={currentGraph.edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onNodeDoubleClick={handleNodeDoubleClick}
-        onSelectionChange={onSelectionChange}
-        onPaneClick={() => setSelectedNodeId(null)} // Add this line
-        nodeTypes={nodeTypes}
-      >
-        <Background />
-        <Controls />
-      </ReactFlow>
+    <div className="graph-view-container" ref={reactFlowWrapper}> {/* Assign ref */}
+      {dimensions.width > 0 && dimensions.height > 0 && ( // Conditionally render
+        <ReactFlow
+          nodes={currentGraph.nodes}
+          edges={currentGraph.edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onNodeDoubleClick={handleNodeDoubleClick} // Use double click for opening NodeModifier
+          onSelectionChange={onSelectionChange}
+          onPaneClick={() => {
+            setSelectedNodeId(null);
+            setIsNodeModifierOpen(false);
+          }}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          defaultEdgeOptions={defaultEdgeOptions}
+        >
+          <Background />
+          <Controls />
+        </ReactFlow>
+      )}
     </div>
   );
 };

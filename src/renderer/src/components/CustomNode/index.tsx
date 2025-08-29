@@ -1,13 +1,22 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import { Handle, Position } from 'reactflow';
 import { MindNodeData } from '../../types';
+import { AppContext } from '../../context/AppContext'; // Import AppContext
+import Icon from '../Icon'; // Assuming you have an Icon component for the pencil
 import './style.css';
 
-const CustomNode: React.FC<{ data: MindNodeData; selected: boolean }> = ({ data, selected }) => {
+const CustomNode: React.FC<{ id: string; data: MindNodeData; selected: boolean }> = ({ id, data, selected }) => {
+  const { setSelectedNodeId, setIsNodeModifierOpen } = useContext(AppContext); // Get setSelectedNodeId and setIsNodeModifierOpen from AppContext
   const hasSubgraph = !!data.subgraphId;
 
   const nodeStyle = {
     borderLeft: `5px solid ${data.color || 'var(--border-color)'}`,
+  };
+
+  const handleEditClick = (event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent node click from triggering
+    setSelectedNodeId(id); // Set this node as selected for modification
+    setIsNodeModifierOpen(true); // Open the NodeModifier sidebar
   };
 
   return (
@@ -26,6 +35,9 @@ const CustomNode: React.FC<{ data: MindNodeData; selected: boolean }> = ({ data,
         )}
       </div>
       {hasSubgraph && <div className="subgraph-indicator">⨠</div>}
+      <button className="edit-node-button" onClick={handleEditClick} title="Edit Node">
+        <Icon name="pencil" /> {/* Assuming 'pencil' icon exists */}
+      </button>
       <Handle
         type="source"
         position={Position.Bottom}

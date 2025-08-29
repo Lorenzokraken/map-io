@@ -4,7 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { writeFile, readFile } from 'fs/promises'
 import * as path from 'path' // Import path module
 
-const autosaveFilePath = path.join(app.getPath('userData'), 'autosave.json'); // Define autosave file path
+const autosaveFilePath = join(app.getAppPath(), 'map_main.json'); // Define autosave file path
 
 async function createWindow(): Promise<void> {
   // Create the browser window.
@@ -32,17 +32,29 @@ async function createWindow(): Promise<void> {
   // Load the remote URL for development or the local html file for production.
   // Read map_main.json at startup
   let initialAppState: any = {}; // Use 'any' for now, will refine
+  const mapMainPath = join(app.getAppPath(), 'map_main.json');
+  const mapMainDefaultPath = join(app.getAppPath(), 'map_main_default.json');
+
   try {
-    const data = await readFile(join(app.getAppPath(), 'map_main.json'), 'utf-8');
+    const data = await readFile(mapMainPath, 'utf-8');
     initialAppState = JSON.parse(data);
+    console.log('Main: Loaded map_main.json. Initial state:', initialAppState);
   } catch (err) {
-    console.error('Failed to load map_main.json at startup:', err);
-    // Provide a default, valid initial state if loading fails
-    initialAppState = {
-      graphs: {},
-      currentGraphId: '',
-      history: [],
-    };
+    console.warn('Main: map_main.json not found or failed to load. Trying map_main_default.json...', err);
+    try {
+      const data = await readFile(mapMainDefaultPath, 'utf-8');
+      initialAppState = JSON.parse(data);
+      console.log('Main: Loaded map_main_default.json. Initial state:', initialAppState);
+    } catch (defaultErr) {
+      console.error('Main: Failed to load map_main_default.json:', defaultErr);
+      // Provide a default, valid initial state if loading fails
+      initialAppState = {
+        graphs: {},
+        currentGraphId: '',
+        history: [],
+      };
+      console.log('Main: Defaulting to empty state.');
+    }
   }
 
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
@@ -53,6 +65,7 @@ async function createWindow(): Promise<void> {
 
   // Send initial data to renderer after window is ready
   mainWindow.webContents.on('did-finish-load', () => {
+    console.log('Main: Sending initial-data to renderer.');
     mainWindow.webContents.send('initial-data', initialAppState);
   });
 }
@@ -134,4 +147,78 @@ ipcMain.handle('load-autosaved-data', async () => {
     console.error('Error loading autosaved data:', err);
     return null; // Return null if no autosaved data or error
   }
+});
+
+// New IPC handler for chat messages
+ipcMain.on('send-chat-message', (event, message: string, state: any) => {
+  console.log('Received chat message:', message);
+  console.log('Current mind map state:', state); // Log the received state
+
+  // Simulate AI response and mind map manipulation
+  let aiResponse = '';
+  let updatedState = { ...state }; // Create a mutable copy of the state
+
+  if (message.toLowerCase().includes('hello')) {
+    aiResponse = 'Hello there! How can I help you with your mind map today?';
+  } else if (message.toLowerCase().includes('create map about')) {
+    const topic = message.toLowerCase().replace('create map about', '').trim();
+    const newGraphId = `graph-${Date.now()}`;
+    const newNodeId = `node-${Date.now()}`;
+    updatedState.graphs[newGraphId] = {
+      id: newGraphId,
+      nodes: [{
+        id: newNodeId,
+        position: { x: 0, y: 0 },
+        data: { title: topic, color: '#FFD700' },
+        type: 'custom',
+        width: 200,
+        height: 50,
+      }],
+      edges: [],
+      rootNodeId: newNodeId,
+    };
+    updatedState.currentGraphId = newGraphId;
+    updatedState.history.push(newGraphId);
+    aiResponse = `I've created a new mind map about "${topic}".`;
+  } else if (message.toLowerCase().includes('add node')) {
+    const parts = message.toLowerCase().split('to');
+    if (parts.length === 2) {
+      const newNodeTitle = parts[0].replace('add node', '').trim();
+      const targetNodeTitle = parts[1].trim();
+
+      const currentGraph = updatedState.graphs[updatedState.currentGraphId];
+      if (currentGraph) {
+        const targetNode = currentGraph.nodes.find((node: any) => node.data.title.toLowerCase() === targetNodeTitle);
+        if (targetNode) {
+          const newNodeId = `node-${Date.now()}`;
+          const newEdgeId = `edge-${Date.now()}`;
+          currentGraph.nodes.push({
+            id: newNodeId,
+            position: { x: targetNode.position.x + 200, y: targetNode.position.y + 50 },
+            data: { title: newNodeTitle, color: '#87CEEB' },
+            type: 'custom',
+            width: 200,
+            height: 50,
+          });
+          currentGraph.edges.push({
+            id: newEdgeId,
+            source: targetNode.id,
+            target: newNodeId,
+          });
+          aiResponse = `I've added "${newNodeTitle}" to "${targetNodeTitle}".`;
+        } else {
+          aiResponse = `Could not find a node with the title: "${targetNodeTitle}".`;
+        }
+      } else {
+        aiResponse = 'There is no active mind map to add nodes to. Please create one first.';
+      }
+    } else {
+      aiResponse = 'Please specify the new node and the target node, e.g., "add node new idea to existing node".';
+    }
+  } else {
+    aiResponse = 'I am an AI assistant for mind mapping. You can ask me to create maps (e.g., "create map about [topic]") or add nodes (e.g., "add node [new idea] to [existing node]").';
+  }
+
+  // Send back the AI response and the updated state
+  event.sender.send('receive-chat-message', aiResponse, updatedState);
 });

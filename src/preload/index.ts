@@ -25,6 +25,16 @@ export const api = {
   },
   loadAutosavedData: () => {
     return ipcRenderer.invoke('load-autosaved-data');
+  },
+  // New chat functions
+  sendChatMessage: (message: string, state: any) => {
+    ipcRenderer.send('send-chat-message', message, state);
+  },
+  onReceiveChatMessage: (callback: (message: string) => void) => {
+    ipcRenderer.on('receive-chat-message', (_event, message) => callback(message));
+  },
+  removeReceiveChatMessageListener: () => {
+    ipcRenderer.removeAllListeners('receive-chat-message');
   }
 };
 

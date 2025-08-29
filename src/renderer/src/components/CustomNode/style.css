@@ -2,24 +2,24 @@
   background-color: var(--secondary-bg);
   border: 1px solid var(--border-color);
   border-left-width: 5px; /* Make space for the color accent */
-  border-radius: 8px;
+  border-radius: 12px; /* Softer corners */
   padding: 12px 18px;
   color: var(--primary-text);
   font-family: inherit;
   width: 200px; /* Increased width to accommodate description */
   text-align: left; /* Align text to the left */
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* More prominent shadow */
 }
 
 .custom-node:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35); /* Enhanced hover shadow */
 }
 
 .custom-node.selected {
-  border-color: var(--accent-color-hover);
-  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+  border-color: var(--accent-color); /* Use primary accent color */
+  box-shadow: 0 0 0 3px var(--accent-color), 0 6px 12px rgba(0, 0, 0, 0.25); /* Subtle border glow + shadow */
 }
 
 .custom-node.has-subgraph {
@@ -66,4 +66,23 @@
 
 .custom-handle:hover {
   background: var(--accent-color) !important;
+}
+
+.edit-node-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--secondary-text);
+  font-size: 1.2em;
+  line-height: 1;
+  z-index: 10; /* Ensure it's above other node content */
+  transition: color 0.2s ease-in-out;
+}
+
+.edit-node-button:hover {
+  color: var(--accent-color);
 }

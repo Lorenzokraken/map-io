@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
   --primary-bg: #1e1e1e;
   --secondary-bg: #2d2d2d;
@@ -9,9 +11,7 @@
   --border-color: #4a4a4a;
   --error-color: #f44747;
 
-  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -45,46 +45,650 @@ body {
   background-color: var(--primary-bg);
 }
 
-.main-content {
+.content-wrapper {
   display: flex;
+  flex-direction: row;
   flex-grow: 1;
   height: calc(100vh - 48px); /* Adjust based on toolbar height */
+}
+
+.main-content {
+  flex-grow: 1;
+  height: 100%;
   overflow: hidden;
-  /* Remove width calculation here, let flexbox handle it */
-  transition: width 0.3s ease-in-out; /* Smooth transition for width change */
+  transition: width 0.3s ease-in-out;
 }
 
-.main-content-full-width {
-  width: 100%; /* Full width when sidebar is hidden */
+.main-content-with-sidebar {
+  width: calc(100% - 350px); /* Adjust based on chat sidebar width */
 }
 
-/* Add styles for sidebar-wrapper within main-content */
+.chat-sidebar {
+  width: 350px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--border-color);
+  transition: width 0.3s ease-in-out;
+}
+
+/* Floating Sidebar (Node Modifier) */
 .sidebar-wrapper {
-  width: 50%; /* Half of the main-content width */
-  flex-shrink: 0; /* Prevent shrinking */
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  width: 350px;
+  max-height: 80%;
+  transform: translateY(-50%);
+  background-color: var(--secondary-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  overflow: hidden; /* Ensure content doesn't spill out */
 }
 
-button {
-  border-radius: 6px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
+.sidebar-container {
+  width: 100%;
+  height: 100%; /* Take full height of wrapper */
+  flex-shrink: 0;
+  background-color: var(--secondary-bg); /* Use secondary-bg for consistency with wrapper */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.sidebar-resizer {
+  width: 8px;
+  cursor: ew-resize;
+  background-color: transparent;
+  position: absolute;
+  left: -4px; /* Half of its width to be on the border */
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.sidebar-resizer:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Visual feedback on hover */
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sidebar-header button {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.sidebar-header h3 {
+  color: var(--primary-text);
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.debug-info {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.debug-info p {
+  margin: 0;
+  color: var(--primary-text);
+  font-size: 12px;
+}
+
+.node-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--primary-text);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%; /* Let padding handle the inner spacing */
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.node-details button {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.node-details button:hover {
+  background-color: var(--accent-color-hover);
+  transform: translateY(-1px); /* Slight lift effect */
+}
+
+.node-details button:active {
+  transform: translateY(0);
+}
+
+.no-node-selected {
+  color: var(--primary-text);
+  text-align: center;
+  margin-top: 50px;
+  font-style: italic;
+}
+
+.modification-disabled-message {
+  color: var(--primary-text);
+  text-align: center;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.node-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.node-field label {
+  font-weight: bold;
+  color: var(--primary-text);
+}
+
+.node-field input,
+.node-field textarea,
+.node-field button {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+.node-field button {
+  cursor: pointer;
+  text-align: left;
+}
+
+.emoji-picker-container {
+  position: absolute;
+  z-index: 10;
+  right: 100%;
+  top: 0;
+}
+
+.edit-content-button {
+  margin-top: 10px;
+}
+
+/* Chat Sidebar */
+:root {
+  --primary-bg: #1e1e1e;
+  --secondary-bg: #2d2d2d;
+  --tertiary-bg: #3c3c3c;
+  --primary-text: #d4d4d4;
+  --secondary-text: #a0a0a0;
+  --accent-color: #007acc;
+  --accent-color-hover: #009eff;
+  --border-color: #4a4a4a;
+  --error-color: #f44747;
+
+  /* New variables for chat components (dark theme defaults) */
+  --chat-input-bg: var(--tertiary-bg);
+  --border: var(--border-color);
+  --background: var(--primary-bg);
+  --foreground: var(--primary-text);
+  --muted-foreground: var(--secondary-text);
+  --primary: var(--accent-color);
+  --primary-ring: rgba(0, 122, 204, 0.5); /* Derived from accent-color */
+  --gradient-primary-start: #007acc; /* Using accent-color */
+  --gradient-primary-end: #009eff; /* Using accent-color-hover */
+  --primary-foreground: #ffffff; /* White text on primary/accent */
+  --shadow-glow: 0 0 20px rgba(0, 122, 204, 0.6); /* Derived from accent-color */
+
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --chat-user-bg: #007acc; /* Using accent-color for user messages */
+  --chat-user-fg: #ffffff; /* White text for user messages */
+  --muted: var(--secondary-bg); /* Using secondary-bg for muted */
+  --chat-ai-bg: var(--tertiary-bg); /* Using tertiary-bg for AI messages */
+  --chat-ai-fg: var(--primary-text); /* Primary text for AI messages */
+
+  --sidebar-bg: var(--secondary-bg);
+  --sidebar-border: var(--border-color);
+  --sidebar-foreground: var(--primary-text);
+  --sidebar-foreground-rgb: 212, 212, 212; /* RGB for primary-text */
+  --sidebar-accent: var(--tertiary-bg);
+  --shadow-elegant: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: var(--primary-text);
+  background-color: var(--primary-bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Light theme variables (if needed, can be activated by adding data-theme="light" to html) */
+[data-theme="light"] {
+  --chat-input-bg: #ffffff;
+  --border: #e5e7eb;
+  --background: #ffffff;
+  --foreground: #111827;
+  --muted-foreground: #6b7280;
+  --primary: #2563eb;
+  --primary-ring: rgba(37, 99, 235, 0.5);
+  --gradient-primary-start: #2563eb;
+  --gradient-primary-end: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --shadow-glow: 0 0 15px rgba(37, 99, 235, 0.4);
+
+  --chat-user-bg: #e0f2fe;
+  --chat-user-fg: #0c4a6e;
+  --muted: #f1f5f9;
+  --chat-ai-bg: #f0fdf4;
+  --chat-ai-fg: #166534;
+
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e5e7eb;
+  --sidebar-foreground: #111827;
+  --sidebar-foreground-rgb: 17, 24, 39;
+  --sidebar-accent: #f3f4f6;
+  --shadow-elegant: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode overrides (already defined in :root, but explicitly for clarity) */
+@media (prefers-color-scheme: dark) {
+  /* No changes needed here if :root already defines dark theme */
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: var(--primary-bg);
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  height: calc(100vh - 48px); /* Adjust based on toolbar height */
+}
+
+.main-content {
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+}
+
+.main-content-with-sidebar {
+  width: calc(100% - 350px); /* Adjust based on chat sidebar width */
+}
+
+.chat-sidebar {
+  width: 350px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--border-color);
+  transition: width 0.3s ease-in-out;
+}
+
+/* Floating Sidebar (Node Modifier) */
+.sidebar-wrapper {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  width: 350px;
+  max-height: 80%;
+  transform: translateY(-50%);
+  background-color: var(--secondary-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  overflow: hidden; /* Ensure content doesn't spill out */
+}
+
+.sidebar-container {
+  width: 100%;
+  height: 100%; /* Take full height of wrapper */
+  flex-shrink: 0;
+  background-color: var(--secondary-bg); /* Use secondary-bg for consistency with wrapper */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.sidebar-resizer {
+  width: 8px;
+  cursor: ew-resize;
+  background-color: transparent;
+  position: absolute;
+  left: -4px; /* Half of its width to be on the border */
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.sidebar-resizer:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Visual feedback on hover */
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sidebar-header button {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.sidebar-header h3 {
+  color: var(--primary-text);
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.debug-info {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.debug-info p {
+  margin: 0;
+  color: var(--primary-text);
+  font-size: 12px;
+}
+
+.node-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--primary-text);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%; /* Let padding handle the inner spacing */
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.node-details button {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.node-details button:hover {
+  background-color: var(--accent-color-hover);
+  transform: translateY(-1px); /* Slight lift effect */
+}
+
+.node-details button:active {
+  transform: translateY(0);
+}
+
+.no-node-selected {
+  color: var(--primary-text);
+  text-align: center;
+  margin-top: 50px;
+  font-style: italic;
+}
+
+.modification-disabled-message {
+  color: var(--primary-text);
+  text-align: center;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.node-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.node-field label {
+  font-weight: bold;
+  color: var(--primary-text);
+}
+
+.node-field input,
+.node-field textarea,
+.node-field button {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+.node-field button {
+  cursor: pointer;
+  text-align: left;
+}
+
+.emoji-picker-container {
+  position: absolute;
+  z-index: 10;
+  right: 100%;
+  top: 0;
+}
+
+.edit-content-button {
+  margin-top: 10px;
+}
+
+
+/* Chat Header */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--tertiary-bg);
+  color: var(--primary-text);
+}
+
+.chat-header h2 {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+/* Chat Messages Area */
+.chat-messages {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Chat Message */
+.chat-message {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-message.ai {
+  justify-content: flex-start;
+}
+
+.chat-message-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.8em;
+}
+
+.chat-message-content {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  word-wrap: break-word;
+}
+
+.chat-message.user .chat-message-content {
+  background-color: var(--accent-color);
+  color: white;
+  border-bottom-right-radius: 2px;
+}
+
+.chat-message.ai .chat-message-content {
   background-color: var(--secondary-bg);
   color: var(--primary-text);
-  cursor: pointer;
-  transition: border-color 0.25s, background-color 0.25s;
-}
-button:hover {
-  background-color: var(--tertiary-bg);
-  border-color: var(--accent-color);
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border-bottom-left-radius: 2px;
 }
 
-.react-flow__renderer {
+/* Chat Input Area */
+.chat-input-area {
+  padding: 15px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--tertiary-bg);
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input-area textarea {
   flex-grow: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  resize: none;
+  min-height: 40px;
+  max-height: 120px;
+}
+
+.chat-input-area button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.chat-input-area button:hover {
+  background-color: var(--accent-color-hover);
 }

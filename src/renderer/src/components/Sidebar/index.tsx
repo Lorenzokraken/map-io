@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from '../../context/AppContext';
-import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import EmojiPicker, { EmojiClickData, Theme } from 'emoji-picker-react';
 import './style.css';
 
-export const Sidebar: React.FC<{ onOpenMarkdownEditor: (nodeId: string) => void }> = ({ onOpenMarkdownEditor }) => {
+export const NodeModifier: React.FC<{ onOpenMarkdownEditor: (nodeId: string) => void }> = ({ onOpenMarkdownEditor }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const context = useContext(AppContext);
 
@@ -11,7 +11,7 @@ export const Sidebar: React.FC<{ onOpenMarkdownEditor: (nodeId: string) => void 
     throw new Error('Sidebar must be used within an AppProvider');
   }
 
-  const { state, updateNodeData, navigateToHistory, selectedNodeId, isSidebarOpen, setIsSidebarOpen } = context;
+  const { state, updateNodeData, navigateToHistory, selectedNodeId, isNodeModifierOpen } = context;
   const currentGraph = state.graphs[state.currentGraphId];
 
   const selectedNode = selectedNodeId
@@ -39,7 +39,7 @@ export const Sidebar: React.FC<{ onOpenMarkdownEditor: (nodeId: string) => void 
   };
 
   return (
-    <div className={`sidebar-wrapper ${isSidebarOpen ? '' : 'sidebar-closed'}`}>
+    <div className={`sidebar-wrapper ${isNodeModifierOpen ? 'open' : ''}`}>
       <aside className="sidebar-container">
         <div className="sidebar-header">
           <button onClick={handleGoBack} disabled={state.history.length <= 1}>
@@ -55,8 +55,68 @@ export const Sidebar: React.FC<{ onOpenMarkdownEditor: (nodeId: string) => void 
         {/* End Debugging information */}
         {selectedNode ? (
           <div className="node-details">
-            <p className="modification-disabled-message">Modification of node properties is disabled. Use the "Add Text" button to edit node content.</p>
+            <div className="node-field">
+              <label>Emoji:</label>
+              <button onClick={() => {
+                console.log('Toggling emoji picker. Current state:', showEmojiPicker);
+                setShowEmojiPicker(!showEmojiPicker);
+              }}>
+                {selectedNode.data.emoji || 'Select Emoji'}
+              </button>
+              {console.log('Emoji picker visibility state:', showEmojiPicker)}
+              {showEmojiPicker && (
+                <div className="emoji-picker-container">
+                  <EmojiPicker
+                    onEmojiClick={(emojiData: EmojiClickData) => {
+                      if (selectedNodeId) {
+                        updateNodeData(selectedNodeId, { emoji: emojiData.emoji });
+                      }
+                      setShowEmojiPicker(false);
+                    }}
+                    theme={Theme.DARK}
+                  />
+                </div>
+              )}
+            </div>
+            <div className="node-field">
+              <label>Name:</label>
+              <input
+                type="text"
+                value={selectedNode.data.title}
+                onChange={handleTitleChange}
+                placeholder="Node name"
+              />
+            </div>
+            <div className="node-field">
+              <label>Description:</label>
+              <textarea
+                value={selectedNode.data.description || ''}
+                onChange={handleDescriptionChange}
+                placeholder="Node description"
+              />
+            </div>
+            <div className="node-field">
+              <label>Color:</label>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                {['#FF6B6B', '#4ECDC4', '#45B7D1', '#FED766', '#28B463', '#AF7AC5', '#F39C12', '#EBEDEF'].map(colorOption => (
+                  <div
+                    key={colorOption}
+                    style={{
+                      width: '24px',
+                      height: '24px',
+                      backgroundColor: colorOption,
+                      borderRadius: '50%',
+                      cursor: 'pointer',
+                      border: selectedNode?.data.color === colorOption ? '2px solid var(--accent-color)' : '1px solid #ccc',
+                      boxShadow: selectedNode?.data.color === colorOption ? '0 0 0 2px rgba(0, 123, 255, 0.5)' : 'none',
+                    }}
+                    onClick={() => updateNodeData(selectedNodeId, { color: colorOption })}
+                  />
+                ))}
+              </div>
+            </div>
             <button
+              className="edit-content-button"
               onClick={() => selectedNodeId && onOpenMarkdownEditor(selectedNodeId)}
             >
               Aggiungi Testo
@@ -70,4 +130,4 @@ export const Sidebar: React.FC<{ onOpenMarkdownEditor: (nodeId: string) => void 
   );
 };
 
-export default Sidebar;
+export default NodeModifier;

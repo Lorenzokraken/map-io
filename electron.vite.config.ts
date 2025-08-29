@@ -10,6 +10,11 @@ export default defineConfig({
     plugins: []
   },
   renderer: {
+    resolve: {
+      alias: {
+        '@': resolve('src/renderer/src')
+      }
+    },
     root: resolve('src/renderer'),
     build: {
       rollupOptions: {

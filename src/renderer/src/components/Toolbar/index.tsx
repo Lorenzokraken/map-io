@@ -17,7 +17,7 @@ const getGraphTitle = (state: AppState, graphId: string): string => {
 };
 
 const Toolbar: React.FC = () => {
-  const { setState, state, addNodeAndEdge, navigateToHistory, onNodesDelete, selectedNodeId, isSidebarOpen, setIsSidebarOpen } = useContext(AppContext);
+  const { setState, state, addNodeAndEdge, navigateToHistory, onNodesDelete, selectedNodeId, isSidebarOpen, setIsSidebarOpen, isNodeModifierOpen, setIsNodeModifierOpen } = useContext(AppContext);
 
   const handleBack = useCallback(() => {
     navigateToHistory(state.history.length - 2);
@@ -113,8 +113,8 @@ const Toolbar: React.FC = () => {
         <button onClick={handleLoad} title="Carica">
           <Icon name="load" />
         </button>
-        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} title="Toggle Sidebar">
-          <Icon name="sidebar" /> {/* Assuming you have a sidebar icon, or use a generic one */}
+        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} title="Toggle Chat Sidebar">
+          <Icon name="ai" />
         </button>
       </div>
     </div>
